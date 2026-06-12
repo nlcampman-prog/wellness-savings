@@ -2,10 +2,14 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ArticleCard from '../components/ArticleCard.astro';
 
-const articles = Object.values(import.meta.glob('../content/articles/*.mdx', { eager: true }));
-const featuredArticles = articles.filter((a: any) => a.frontmatter?.featured);
-const allArticles = articles.sort((a: any, b: any) =>
-  new Date(b.frontmatter?.pubDate || 0).getTime() - new Date(a.frontmatter?.pubDate || 0).getTime()
+const articles = Object.entries(import.meta.glob('../content/articles/*.mdx', { eager: true }))
+  .map(([path, mod]: [string, any]) => ({
+    ...mod.frontmatter,
+    slug: path.split('/').pop()?.replace('.mdx', '') || '',
+  }));
+const featuredArticles = articles.filter((a) => a.featured);
+const allArticles = articles.sort((a, b) =>
+  new Date(b.pubDate || b.date || 0).getTime() - new Date(a.pubDate || a.date || 0).getTime()
 );
 ---
 
@@ -26,11 +30,9 @@ const allArticles = articles.sort((a: any, b: any) =>
       <section>
         <h2>Featured Deals</h2>
         <div class="card-grid">
-          {featuredArticles.map((article: any) => {
-            const { title, description, pubDate, category } = article.frontmatter;
-            const slug = article.url?.split('/').pop()?.replace('.mdx', '') || '';
-            return <ArticleCard title={title} description={description} url={`/articles/${slug}/`} category={category} date={pubDate} />;
-          })}
+          {featuredArticles.map((article: any) => (
+            <ArticleCard title={article.title} description={article.metaDescription || article.description} url={`/articles/${article.slug}/`} category={article.category} date={article.pubDate || article.date} />
+          ))}
         </div>
       </section>
     )}
@@ -38,11 +40,9 @@ const allArticles = articles.sort((a: any, b: any) =>
     <section>
       <h2>Latest Deals &amp; Reviews</h2>
       <div class="card-grid">
-        {allArticles.map((article: any) => {
-          const { title, description, pubDate, category } = article.frontmatter;
-          const slug = article.url?.split('/').pop()?.replace('.mdx', '') || '';
-          return <ArticleCard title={title} description={description} url={`/articles/${slug}/`} category={category} date={pubDate} />;
-        })}
+        {allArticles.map((article: any) => (
+          <ArticleCard title={article.title} description={article.metaDescription || article.description} url={`/articles/${article.slug}/`} category={article.category} date={article.pubDate || article.date} />
+        ))}
       </div>
     </section>
   </div>

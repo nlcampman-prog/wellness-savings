@@ -1,26 +1,20 @@
 import rss from '@astrojs/rss';
 
 export async function GET(context) {
-  const globResult = import.meta.glob('../content/articles/*.mdx', { eager: true });
-  const articles = Object.values(globResult);
+  const articles = Object.entries(import.meta.glob('../content/articles/*.mdx', { eager: true }));
   const items = articles
-    .sort((a, b) => {
-      const dateA = new Date(a.frontmatter?.pubDate || 0).getTime();
-      const dateB = new Date(b.frontmatter?.pubDate || 0).getTime();
-      return dateB - dateA;
-    })
-    .map((article) => {
-      const { title, description, pubDate, category } = article.frontmatter;
-      const url = article.url || '';
-      const slug = url.split('/').pop()?.replace('.mdx', '') || '';
+    .map(([path, mod]) => {
+      const fm = mod.frontmatter;
       return {
-        title,
-        description,
-        pubDate: new Date(pubDate),
-        link: `/articles/${slug}/`,
-        categories: category ? [category] : [],
+        title: fm.title || '',
+        description: fm.metaDescription || fm.description || '',
+        pubDate: new Date(fm.pubDate || fm.date || Date.now()),
+        link: `/articles/${path.split('/').pop()?.replace('.mdx', '') || ''}/`,
+        categories: fm.category ? [fm.category] : [],
       };
-    });
+    })
+    .filter(item => item.title && item.description)
+    .sort((a, b) => b.pubDate.getTime() - a.pubDate.getTime());
 
   return rss({
     title: 'Wellness Savings — Deals & Discount Codes',
