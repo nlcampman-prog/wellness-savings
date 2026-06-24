@@ -19,11 +19,4 @@ export default defineConfig({
   markdown: {
     shikiConfig: { theme: 'github-light' },
   },
-  vite: {
-    build: {
-      rollupOptions: {
-        output: { manualChunks: undefined },
-      },
-    },
-  },
 });
