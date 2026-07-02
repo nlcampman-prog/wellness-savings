@@ -35,7 +35,7 @@ const jsonLd = type === 'article' ? {
   image: ogImage,
   datePublished: publishedTime,
   author: { '@type': 'Organization', name: 'Wellness Savings', url: siteUrl },
-  publisher: { '@type': 'Organization', name: 'Wellness Savings', logo: { '@type': 'ImageObject', url: `${siteUrl}/logo.png` } },
+  publisher: { '@type': 'Organization', name: 'Wellness Savings', logo: { '@type': 'ImageObject', url: `${siteUrl}/logo.svg` } },
   mainEntityOfPage: { '@type': 'WebPage', '@id': pageUrl },
 } : {
   '@context': 'https://schema.org',
@@ -85,8 +85,7 @@ const jsonLd = type === 'article' ? {
   <header class="site-header">
     <div class="header-inner">
       <a href="/" class="site-logo">
-        <span class="logo-icon">WS</span>
-        Wellness Savings
+        <img src="/logo.svg" alt="Wellness Savings" width="200" height="50" />
       </a>
       <nav class="site-nav">
         <a href="/">Home</a>

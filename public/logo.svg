@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 50" width="200" height="50">
+  <!-- Leaf icon -->
+  <g transform="translate(5, 5)">
+    <path d="M20 40 C8 28 6 10 20 0 C34 10 32 28 20 40Z" fill="#059669"/>
+    <path d="M20 2 L20 38" stroke="#047857" stroke-width="1.5" stroke-linecap="round" opacity="0.3"/>
+    <path d="M12 12 Q20 18 28 12" stroke="#047857" stroke-width="1" fill="none" opacity="0.3"/>
+    <path d="M10 22 Q20 28 30 22" stroke="#047857" stroke-width="1" fill="none" opacity="0.3"/>
+  </g>
+  <!-- Text -->
+  <text x="50" y="32" font-family="'Segoe UI', Arial, sans-serif" font-size="20" font-weight="700" fill="#14532d">Wellness</text>
+  <text x="50" y="48" font-family="'Segoe UI', Arial, sans-serif" font-size="18" font-weight="300" fill="#059669">Savings</text>
+</svg>
