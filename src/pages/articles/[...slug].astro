@@ -16,7 +16,7 @@ const { title, description, pubDate, updatedDate, category, tags = [], metaDescr
     const articleDesc = metaDescription || description || '';
     const articleDate = pubDate || date || '';
     const articleUpdated = updatedDate || articleDate;
-    const articleAuthor = author || 'Nichole Sible';
+    const articleAuthor = author || 'Nichole';
 ---
 
 <BaseLayout title={title} description={articleDesc} type="article" publishedTime={articleDate} tags={tags}>
@@ -26,7 +26,7 @@ const { title, description, pubDate, updatedDate, category, tags = [], metaDescr
         {category && <a href={`/categories/${category.toLowerCase().replace(/\s+/g, '-')}/`} class="card-category">{category}</a>}
         <h1>{title}</h1>
         <div class="article-meta">
-                      <span>By <a href="/authors/nichole-sible/" style="font-weight:600;">{articleAuthor}</a></span>
+                      <span>By <a href="/authors/nichole/" style="font-weight:600;">{articleAuthor}</a></span>
                       <span aria-hidden="true">·</span>
                       <time datetime={articleDate}>{new Date(articleDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
                       {articleUpdated && articleUpdated !== articleDate && <span>(Updated: {new Date(articleUpdated).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })})</span>}
