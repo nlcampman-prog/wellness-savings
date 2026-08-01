@@ -1,9 +1,12 @@
 export const pinFilenames = [
+  'ag1-review-2026.jpg',
   'baby-feeding-timeline-2026.jpg',
   'baby-registry-checklist-2026.jpg',
   'best-baby-monitors-2026-mom-tested-review.jpg',
   'best-breast-pumps-2026-real-moms-guide.jpg',
+  'best-colostrum-supplements-2026.jpg',
   'best-mushroom-coffee-alternatives-2026.jpg',
+  'best-supplements-mom-energy-2026.jpg',
   'creatine-for-women-guide-2026.jpg',
   'electrolytes-101-signs-you-need-them-women-workout.jpg',
   'gut-skin-connection-leaky-gut-acne-probiotics.jpg',
