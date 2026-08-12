@@ -2,7 +2,16 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import rawCouponData from '../data/coupons-data.json';
 const couponData = JSON.parse(JSON.stringify(rawCouponData));
-const coupons = couponData.wellnesssavings || [];
+// Merge wellness + fitness coupons (dedupe shared brands like Beam/Equip)
+const wellnessCoupons = couponData.wellnesssavings || [];
+const fitnessCoupons = couponData.fitsupdeals || [];
+const seenCoupons = new Set<string>();
+const coupons = [...wellnessCoupons, ...fitnessCoupons].filter(c => {
+  const key = `${c.brand}|${c.code}`.toLowerCase();
+  if (seenCoupons.has(key)) return false;
+  seenCoupons.add(key);
+  return true;
+});
 
 // Group by category
 const grouped = {};
