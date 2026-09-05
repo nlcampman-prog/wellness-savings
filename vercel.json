@@ -229,6 +229,16 @@
       "source": "/articles/best-colostrum-supplements-for-women-2026/",
       "destination": "/articles/best-colostrum-supplements-2026/",
       "permanent": true
+    },
+    {
+      "source": "/privacy-policy",
+      "destination": "/privacy/",
+      "permanent": true
+    },
+    {
+      "source": "/privacy-policy/",
+      "destination": "/privacy/",
+      "permanent": true
     }
   ]
 }
