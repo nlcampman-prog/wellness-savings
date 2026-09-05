@@ -29,7 +29,8 @@
     { "brand": "Champion Peptides", "code": "Code", "discount": "Affiliate Link", "url": "https://championpeptides.com/", "category": "Supplements", "description": "Peptide supplements for muscle growth and recovery." },
     { "brand": "MuleRun", "code": "Code", "discount": "Affiliate Link", "url": "https://mulerun.com/", "category": "Gear", "description": "Running gear and accessories for women." },
     { "brand": "AEKE", "code": "Code", "discount": "Affiliate Link", "url": "https://aeke.com/", "category": "Equipment", "description": "Smart home gym equipment for strength training." },
-    { "brand": "Yoga Go", "code": "Code", "discount": "Affiliate Link", "url": "https://yogago.com/", "category": "Fitness", "description": "Yoga and flexibility training app." }
+    { "brand": "Yoga Go", "code": "Code", "discount": "Affiliate Link", "url": "https://yogago.com/", "category": "Fitness", "description": "Yoga and flexibility training app." },
+    { "brand": "Athleta", "code": "Link", "discount": "Affiliate Link", "url": "https://creatorlink.shop/4ifi2gE", "category": "Activewear", "description": "High-rise Athleta workout leggings — squat-proof coverage that holds up to mom life." }
   ],
   "momsavesdeals": [
     { "brand": "Lovevery", "code": "Link", "discount": "Up to 40% OFF", "url": "https://lovevery.com/", "category": "Baby Gear", "description": "Montessori play kits and toys for babies and toddlers." },
