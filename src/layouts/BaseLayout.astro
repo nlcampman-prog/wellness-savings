@@ -26,8 +26,13 @@ const fullTitle = title === siteTitle ? siteTitle : `${title} | ${siteTitle}`;
 const siteUrl = 'https://wellnesssavings.org';
 const pageUrl = canonical || `${siteUrl}${Astro.url.pathname}`;
 const ogImage = image.startsWith('http') ? image : `${siteUrl}${image}`;
+const path = Astro.url.pathname;
 
-// Enhanced JSON-LD: Organization (always) + Article/BreadcrumbList (articles) + WebSite (non-articles)
+function navActive(href: string) {
+  if (href === '/') return path === '/';
+  return path === href || path.startsWith(href);
+}
+
 const baseSchema = {
   '@context': 'https://schema.org',
   '@graph': [
@@ -126,52 +131,88 @@ const jsonLd = articleSchema;
 
   <title>{fullTitle}</title>
 
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
   <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   <link rel="alternate" type="application/rss+xml" title={`${siteTitle} — Deals & Discount Codes`} href="/rss.xml" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-<!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6524727111653038" crossorigin="anonymous"></script>
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header">
     <div class="header-inner">
       <a href="/" class="site-logo">
-        <img src="/logo.svg" alt="Wellness Savings" width="200" height="50" />
+        <img src="/logo.svg" alt="Wellness Savings" width="188" height="44" />
       </a>
-      <nav class="site-nav">
-                  <a href="/">Home</a>
-                  <a href="/categories/fitness/">Fitness</a>
-                  <a href="/categories/family/">Family</a>
-                  <a href="/coupons/">Coupons</a>
-        <a href="/categories/">Categories</a>
-        <a href="/coupons/">Coupons</a>
-                  <a href="/about/">About</a>
-                  <a href="/contact/">Contact</a>
-                  <a href="https://buy.stripe.com/3cIbJ18CK6dp7vKduWbsc02" class="buy-btn" target="_blank" rel="noopener">🌿 Wellness Guide $7</a>
-                </nav>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="site-nav" id="site-nav">
+        <a href="/" class={navActive('/') ? 'active' : undefined}>Home</a>
+        <a href="/categories/fitness/" class={navActive('/categories/fitness/') ? 'active' : undefined}>Fitness</a>
+        <a href="/categories/family/" class={navActive('/categories/family/') ? 'active' : undefined}>Family</a>
+        <a href="/categories/" class={navActive('/categories/') && !navActive('/categories/fitness/') && !navActive('/categories/family/') ? 'active' : undefined}>Categories</a>
+        <a href="/coupons/" class={navActive('/coupons/') ? 'active' : undefined}>Coupons</a>
+        <a href="/about/" class={navActive('/about/') ? 'active' : undefined}>About</a>
+        <a href="/contact/" class={navActive('/contact/') ? 'active' : undefined}>Contact</a>
+        <a href="https://buy.stripe.com/3cIbJ18CK6dp7vKduWbsc02" class="buy-btn" target="_blank" rel="noopener">Wellness Guide $7</a>
+      </nav>
     </div>
   </header>
 
-  <main>
+  <main id="main">
     <slot />
   </main>
 
   <footer class="site-footer">
-    <div class="footer-inner">
-      <div class="footer-text">
-        &copy; {new Date().getFullYear()} Wellness Savings. All rights reserved.
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="/" class="site-logo">
+          <img src="/logo.svg" alt="Wellness Savings" width="168" height="40" />
+        </a>
+        <p>Mom-tested discount codes and honest reviews for supplements, coffee, skincare, and family wellness — so you never have to pay full price for the good stuff.</p>
       </div>
-      <div class="footer-links">
-                  <a href="/about/">About</a>
-                  <a href="/contact/">Contact</a>
-                  <a href="/coupons/">Coupons</a>
+      <div>
+        <h3>Explore</h3>
         <a href="/categories/">Categories</a>
-        <a href="/coupons/">Coupons</a>
-                  <a href="/privacy/">Privacy Policy</a>
-                  <a href="/affiliate-disclosure/">Affiliate Disclosure</a>
-                  <a href="https://buy.stripe.com/3cIbJ18CK6dp7vKduWbsc02">🌿 Wellness Guide $7</a>
-                </div>
+        <a href="/coupons/">Coupon codes</a>
+        <a href="/categories/fitness/">Fitness</a>
+        <a href="/categories/family/">Family</a>
+        <a href="/categories/supplements/">Supplements</a>
+      </div>
+      <div>
+        <h3>The site</h3>
+        <a href="/about/">About Nichole</a>
+        <a href="/contact/">Contact</a>
+        <a href="/authors/nichole/">All reviews</a>
+        <a href="https://buy.stripe.com/3cIbJ18CK6dp7vKduWbsc02" target="_blank" rel="noopener">Wellness Guide $7</a>
+      </div>
+      <div>
+        <h3>Legal</h3>
+        <a href="/privacy/">Privacy Policy</a>
+        <a href="/affiliate-disclosure/">Affiliate Disclosure</a>
+        <a href="/rss.xml">RSS</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; {new Date().getFullYear()} Wellness Savings. All rights reserved.</span>
+      <span>Some links are affiliate links. We only recommend what we’d use at home.</span>
     </div>
   </footer>
+  <script is:inline>
+    const toggle = document.querySelector('.nav-toggle');
+    const nav = document.getElementById('site-nav');
+    if (toggle && nav) {
+      toggle.addEventListener('click', () => {
+        const open = nav.classList.toggle('is-open');
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+        document.body.classList.toggle('nav-open', open);
+      });
+    }
+  </script>
 </body>
 </html>

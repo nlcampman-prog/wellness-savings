@@ -45,8 +45,8 @@ function findArticleSlug(brand: string): string {
 <BaseLayout title="Coupons & Discount Codes — Wellness Savings" description="Browse all active wellness discount codes and coupon codes. Save on supplements, organic coffee, skincare, and more with verified promo codes.">
   <div class="container">
     <div class="category-header">
-      <h1>All Coupon Codes 💰</h1>
-      <p>Every active discount code we've verified. Click any code to copy it, then click "Shop Now" to start saving.</p>
+    <h1>Coupon codes</h1>
+    <p>Every active discount code we’ve verified. Tap a code to copy it, then shop.</p>
     </div>
 
     {categories.map(cat => (
@@ -60,7 +60,7 @@ function findArticleSlug(brand: string): string {
                 <span class="card-category">{coupon.category}</span>
                 <h3 class="card-title" style="font-size:1.2rem;margin-bottom:0.25rem;">{coupon.brand}</h3>
                 <div style="font-size:1.1rem;font-weight:800;color:var(--color-primary);margin-bottom:0.5rem;">{coupon.discount}</div>
-                <div style="background:var(--color-badge-bg);border:1px dashed var(--color-primary);border-radius:var(--radius-sm);padding:0.5rem 0.75rem;text-align:center;font-family:monospace;font-size:1.05rem;font-weight:700;margin-bottom:0.75rem;cursor:pointer;" onclick="navigator.clipboard.writeText('{coupon.code}');this.textContent='✓ Copied!'" title="Click to copy">
+                <div class="coupon-code" onclick="navigator.clipboard.writeText('{coupon.code}');this.textContent='✓ Copied!'" title="Click to copy">
                   {coupon.code}
                 </div>
                 <p class="card-excerpt" style="flex:1;">{coupon.description}</p>

@@ -59,12 +59,11 @@ const relatedArticles = (relatedData as Record<string, any[]>)[rawSlug] || [];
               <a href={`/articles/${a.slug}/`} class="related-card">
                 <div class="related-image-wrapper">
                   {a.featuredImage ? (
-                    <img src={a.featuredImage} alt={a.title} class="related-image" loading="lazy" width="320" height="180" />
-                  ) : (
-                    <div class="related-image-fallback">
-                      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
-                    </div>
-                  )}
+                    <img src={a.featuredImage} alt="" class="related-image" loading="lazy" width="320" height="180" onerror="this.style.display='none'" />
+                  ) : null}
+                  <div class="related-image-fallback">
+                    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20c-6 0-9-8-9-8s3-8 9-8 9 8 9 8-3 8-9 8z"/><circle cx="12" cy="12" r="3"/></svg>
+                  </div>
                 </div>
                 <div class="related-card-body">
                   <span class="related-card-title">{a.title}</span>
