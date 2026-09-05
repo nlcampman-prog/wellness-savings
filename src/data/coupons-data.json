@@ -13,12 +13,16 @@
     { "brand": "Telos RX", "code": "Link", "discount": "Affiliate Link", "url": "https://get.aspr.app/SH1oXQ", "category": "Wellness", "description": "Wellness supplements for metabolism and energy support." },
     { "brand": "Trimi GLP1", "code": "Link", "discount": "Affiliate Link", "url": "https://get.aspr.app/SH1oXQ", "category": "Weight Management", "description": "Natural GLP-1 support for weight management." },
     { "brand": "Buoy Hydration", "code": "Code", "discount": "Affiliate Link", "url": "https://buoyhydration.com/", "category": "Hydration", "description": "Sugar-free electrolyte drops for daily hydration." },
-    { "brand": "Javvy Coffee", "code": "Code", "discount": "Affiliate Link", "url": "https://javvycoffee.com/", "category": "Coffee", "description": "Functional coffee blends with mushrooms and adaptogens." }
+    { "brand": "Javvy Coffee", "code": "NICHOLE186", "discount": "20% OFF", "url": "https://javvycoffee.com/a/NICHOLE186", "category": "Coffee", "description": "Functional coffee blends with mushrooms and adaptogens." },
+    { "brand": "Flourish Pancakes", "code": "NICHOLE065", "discount": "10% OFF", "url": "https://flourish.rfrl.co/yz7z3", "category": "Protein", "description": "Just-add-water protein pancake mix — 23–24g protein, 0g added sugar." },
+    { "brand": "Rival Nutrition", "code": "Link", "discount": "20% OFF", "url": "https://rstr.co/rivalnutrition/17245", "category": "Protein", "description": "Clean whey protein — 25g per serving, 20% off via link." },
+    { "brand": "Perfect Supplements", "code": "UNMOM10", "discount": "10% OFF + bulk stack", "url": "https://www.perfectsupplements.com/?Click=67b8f8b032526", "category": "Protein", "description": "Hydrolyzed collagen (97% protein). Code stacks with bulk discounts." },
+    { "brand": "Organifi", "code": "FRIEND-DJG789Q", "discount": "10% OFF", "url": "https://organifi.refr.cc/default/u/nicholesible", "category": "Greens", "description": "Superfood greens powders and wellness drinks." }
   ],
   "fitsupdeals": [
     { "brand": "Beam Organics", "code": "MOM247", "discount": "42% OFF", "url": "https://beamorganics.sjv.io/B0bvd0", "category": "Recovery", "description": "Dream powder for sleep, hot chocolate for recovery." },
     { "brand": "Equip Foods", "code": "MOM247", "discount": "20-25% OFF", "url": "https://www.equipfoods.com/MOM247", "category": "Protein", "description": "Clean protein powder, beef liver, and collagen supplements." },
-    { "brand": "1st Phorm", "code": "Link", "discount": "Affiliate Link", "url": "https://www.1stphorm.com/", "category": "Supplements", "description": "Premium fitness supplements — protein, pre-workout, vitamins." },
+    { "brand": "1st Phorm", "code": "Link", "discount": "Affiliate Link", "url": "https://1stphorm.sjv.io/k49VYz", "category": "Supplements", "description": "Premium fitness supplements — protein, pre-workout, vitamins." },
     { "brand": "FlexBeam", "code": "Link", "discount": "Affiliate Link", "url": "https://rechargehealthas.sjv.io/oNoVyY", "category": "Recovery", "description": "Wearable red light therapy device for muscle recovery and pain." },
     { "brand": "BonCharge", "code": "Code", "discount": "Affiliate Link", "url": "https://boncharge.com/", "category": "Recovery", "description": "Red light therapy, PEMF, and recovery devices." },
     { "brand": "BodyHealth Perfect Amino", "code": "Link", "discount": "Affiliate Link", "url": "https://bodyhealth.com/", "category": "Supplements", "description": "99% utilization amino acid supplement for muscle recovery." },
