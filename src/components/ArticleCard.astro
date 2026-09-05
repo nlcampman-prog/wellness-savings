@@ -7,11 +7,15 @@ export interface Props {
   date?: string;
   tags?: string[];
 }
-const { title, description, url, category, date, tags = [] } = Astro.props;
+const { title, description, url, category, date } = Astro.props;
+const excerpt = (description || '').trim();
 ---
 <article class="card">
-  {category && <span class="card-category">{category}</span>}
+  <div class="card-top">
+    {category && <a href={`/categories/${category.toLowerCase().replace(/\s+/g, '-')}/`} class="card-category">{category}</a>}
+    {date && <div class="card-meta"><time datetime={date}>{new Date(date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</time></div>}
+  </div>
   <h2 class="card-title"><a href={url}>{title}</a></h2>
-  {date && <div class="card-meta"><time datetime={date}>{new Date(date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</time></div>}
-  <p class="card-excerpt">{description}</p>
+  {excerpt && <p class="card-excerpt">{excerpt}</p>}
+  <a class="card-more" href={url}>Read review</a>
 </article>

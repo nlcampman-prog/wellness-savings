@@ -11,6 +11,15 @@ const featuredArticles = articles.filter((a) => a.featured);
 const allArticles = articles.sort((a, b) =>
   new Date(b.pubDate || b.date || 0).getTime() - new Date(a.pubDate || a.date || 0).getTime()
 );
+const latestArticles = allArticles.slice(0, 12);
+
+const categoryCounts = new Map<string, number>();
+articles.forEach((a) => {
+  if (a.category) categoryCounts.set(a.category, (categoryCounts.get(a.category) || 0) + 1);
+});
+const topCategories = Array.from(categoryCounts.entries())
+  .sort((a, b) => b[1] - a[1])
+  .slice(0, 8);
 ---
 
 <BaseLayout
@@ -20,15 +29,44 @@ const allArticles = articles.sort((a, b) =>
 >
   <section class="hero">
     <div class="container-narrow">
-      <h1>Save Big on Health &amp; Wellness</h1>
-      <p>Hand-picked discount codes and exclusive deals on the best supplements, coffee, skincare, and wellness products. Never pay full price again.</p>
+      <p class="hero-kicker">Mom of five · Honest reviews · Real codes</p>
+      <h1>Save on the wellness products you’d actually buy</h1>
+      <p>Hand-picked discount codes and no-hype reviews for supplements, coffee, skincare, and family gear. Verified by Nichole — never pay full price again.</p>
+      <div class="hero-actions">
+        <a class="aff-btn" href="/coupons/">Browse coupon codes</a>
+        <a class="btn-secondary" href="/categories/">Explore categories</a>
+      </div>
     </div>
   </section>
 
+  <div class="trust-bar">
+    <div class="container trust-row">
+      <div><strong>Exclusive codes</strong><span>Nichole’s partner discounts, updated regularly</span></div>
+      <div><strong>Mom-tested picks</strong><span>A household of seven is a ruthless focus group</span></div>
+      <div><strong>Always disclosed</strong><span>Affiliate links, never fake “must-buy” hype</span></div>
+    </div>
+  </div>
+
   <div class="container">
+    <section class="category-strip">
+      <div class="section-heading">
+        <h2>Shop by category</h2>
+        <a href="/categories/">All categories</a>
+      </div>
+      <div class="chip-row">
+        {topCategories.map(([name, count]) => (
+          <a class="chip" href={`/categories/${name.toLowerCase().replace(/\s+/g, '-')}/`}>
+            {name} <em>{count}</em>
+          </a>
+        ))}
+      </div>
+    </section>
+
     {featuredArticles.length > 0 && (
       <section>
-        <h2>Featured Deals</h2>
+        <div class="section-heading">
+          <h2>Featured deals</h2>
+        </div>
         <div class="card-grid">
           {featuredArticles.map((article: any) => (
             <ArticleCard title={article.title} description={article.metaDescription || article.description} url={`/articles/${article.slug}/`} category={article.category} date={article.pubDate || article.date} />
@@ -38,9 +76,12 @@ const allArticles = articles.sort((a, b) =>
     )}
 
     <section>
-      <h2>Latest Deals &amp; Reviews</h2>
+      <div class="section-heading">
+        <h2>Latest deals &amp; reviews</h2>
+        <a href="/categories/">Browse the archive</a>
+      </div>
       <div class="card-grid">
-        {allArticles.map((article: any) => (
+        {latestArticles.map((article: any) => (
           <ArticleCard title={article.title} description={article.metaDescription || article.description} url={`/articles/${article.slug}/`} category={article.category} date={article.pubDate || article.date} />
         ))}
       </div>
