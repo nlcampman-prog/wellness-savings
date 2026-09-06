@@ -530,9 +530,21 @@ section > h2 { margin-bottom: 0.5rem; }
   align-items: center;
   font-size: 0.9rem;
   color: var(--color-text-secondary);
-  margin-bottom: 2rem;
+  margin-bottom: 0;
   padding-bottom: 1.5rem;
   border-bottom: 1px solid var(--color-border);
+}
+.article-hero {
+  margin: 1.5rem 0 2rem;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+.article-hero img {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 .article-content { font-size: 1.05rem; line-height: 1.85; overflow-x: auto; }
 .article-content h2 { margin-top: 2.75rem; }

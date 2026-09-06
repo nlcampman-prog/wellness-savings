@@ -29,7 +29,10 @@
     { "brand": "Champion Peptides", "code": "Code", "discount": "Affiliate Link", "url": "https://championpeptides.com/", "category": "Supplements", "description": "Peptide supplements for muscle growth and recovery." },
     { "brand": "MuleRun", "code": "Code", "discount": "Affiliate Link", "url": "https://mulerun.com/", "category": "Gear", "description": "Running gear and accessories for women." },
     { "brand": "AEKE", "code": "Code", "discount": "Affiliate Link", "url": "https://aeke.com/", "category": "Equipment", "description": "Smart home gym equipment for strength training." },
-    { "brand": "Yoga Go", "code": "Code", "discount": "Affiliate Link", "url": "https://yogago.com/", "category": "Fitness", "description": "Yoga and flexibility training app." }
+    { "brand": "Yoga Go", "code": "Code", "discount": "Affiliate Link", "url": "https://yogago.com/", "category": "Fitness", "description": "Yoga and flexibility training app." },
+    { "brand": "Athleta", "code": "Link", "discount": "Affiliate Link", "url": "https://creatorlink.shop/4ifi2gE", "category": "Activewear", "description": "High-rise Athleta workout leggings — squat-proof coverage that holds up to mom life." },
+    { "brand": "Old Navy Active", "code": "Link", "discount": "Affiliate Link", "url": "https://creatorlink.shop/4ifTXpY", "category": "Activewear", "description": "Old Navy Active — PowerPress compression and everyday workout clothes." },
+    { "brand": "CRZ YOGA", "code": "Link", "discount": "Affiliate Link", "url": "https://amzlink.to/az0WM5ysvZoCN", "category": "Activewear", "description": "Budget Lululemon Align alternative — buttery-soft leggings with pockets." }
   ],
   "momsavesdeals": [
     { "brand": "Lovevery", "code": "Link", "discount": "Up to 40% OFF", "url": "https://lovevery.com/", "category": "Baby Gear", "description": "Montessori play kits and toys for babies and toddlers." },
@@ -43,9 +46,19 @@
     { "brand": "Mud Pie", "code": "Code", "discount": "15% OFF", "url": "https://mudpie.com/", "category": "Kids Fashion", "description": "Adorable baby and kids' clothing and gifts." },
     { "brand": "Kidpik", "code": "Link", "discount": "Affiliate Link", "url": "https://kidpik.com/", "category": "Kids Fashion", "description": "Kids' clothing subscription box — styled outfits delivered." },
     { "brand": "Lume Deodorant", "code": "Link", "discount": "Affiliate Link", "url": "https://lumedeodorant.sjv.io/yZOkyy", "category": "Personal Care", "description": "Natural deodorant safe for pregnancy and nursing." },
+    { "brand": "Native Deodorant", "code": "Link", "discount": "Affiliate Link", "url": "https://track.revoffers.com/aff_c?offer_id=642&aff_id=12954", "category": "Personal Care", "description": "Classic aluminum-free solid deodorant with clean scents." },
+    { "brand": "Humble Brands", "code": "Link", "discount": "Affiliate Link", "url": "https://amzlink.to/az0g9o88ZY2bJ", "category": "Personal Care", "description": "Simple magnesium deodorant — baking-soda-free sensitive line available." },
+    { "brand": "Kosas Sport", "code": "Link", "discount": "Affiliate Link", "url": "https://amzlink.to/az0FGSlpfENFv", "category": "Personal Care", "description": "AHA chemistry deodorant that actually survives a workout." },
+    { "brand": "Schmidt's Deodorant", "code": "Link", "discount": "Affiliate Link", "url": "https://amzlink.to/az0dEv7BneMtE", "category": "Personal Care", "description": "Charcoal + magnesium deodorant for high-output days." },
+    { "brand": "Phlur Vanilla Skin", "code": "Link", "discount": "Affiliate Link", "url": "https://amzlink.to/az0iylOXOs3w7", "category": "Personal Care", "description": "Aluminum-free deodorant that smells like a fine fragrance." },
+    { "brand": "Salt & Stone", "code": "Link", "discount": "Affiliate Link", "url": "https://amzlink.to/az0ryu2nZBfmp", "category": "Personal Care", "description": "Probiotic natural deodorant — Bergamot & Hinoki and other spa scents." },
     { "brand": "Angel Bliss", "code": "Code", "discount": "Affiliate Link", "url": "https://angelbliss.com/", "category": "Baby Gear", "description": "Baby products and accessories." },
     { "brand": "Baby Sunnies", "code": "Code", "discount": "Affiliate Link", "url": "https://babysunnies.com/", "category": "Baby Gear", "description": "Baby sunglasses and UV protection." },
     { "brand": "Stork Exchange", "code": "Code", "discount": "Affiliate Link", "url": "https://storkexchange.com/", "category": "Baby Gear", "description": "Baby gear rental and exchange service." },
-    { "brand": "Rebel", "code": "Code", "discount": "Affiliate Link", "url": "https://rebel.com/", "category": "Kids Fashion", "description": "Kids' clothing and accessories." }
+    { "brand": "Rebel", "code": "Code", "discount": "Affiliate Link", "url": "https://rebel.com/", "category": "Kids Fashion", "description": "Kids' clothing and accessories." },
+    { "brand": "Mockingbird", "code": "Link", "discount": "Affiliate Link", "url": "https://amzlink.to/az0Nw2B9k5u4m", "category": "Baby Gear", "description": "Single-to-double stroller — luxury feel at about half the price." },
+    { "brand": "UPPAbaby Cruz V3", "code": "Link", "discount": "Affiliate Link", "url": "https://amzlink.to/az0RLy83kxvmh", "category": "Baby Gear", "description": "UPPAbaby Cruz V3 Full-Size in Callum — from birth, car-seat compatible." },
+    { "brand": "Stokke YOYO", "code": "Link", "discount": "Affiliate Link", "url": "https://go.shopmy.us/p-84522515", "category": "Baby Gear", "description": "Overhead-bin travel stroller (the YOYO formerly known as Babyzen)." },
+    { "brand": "BOB Gear Wayfinder", "code": "Link", "discount": "Affiliate Link", "url": "https://walmrt.us/4qTIdvm", "category": "Baby Gear", "description": "BOB Gear Wayfinder jogging stroller with dual suspension." }
   ]
 }

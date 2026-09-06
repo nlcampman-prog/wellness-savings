@@ -1,4 +1,6 @@
 ---
+import fs from 'node:fs';
+import path from 'node:path';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import AdPlaceholder from '../../components/AdPlaceholder.astro';
 import relatedData from '../../data/related.json';
@@ -24,17 +26,25 @@ function getPinImage(slug: string) {
   }
   return null;
 }
+
+function publicFileExists(src?: string) {
+  if (!src || !src.startsWith('/')) return false;
+  return fs.existsSync(path.join(process.cwd(), 'public', src.replace(/^\//, '')));
+}
+
 const { Content, frontmatter } = article;
 const { title, description, pubDate, updatedDate, category, tags = [], metaDescription, date, featuredImage, author } = frontmatter;
 const articleDesc = metaDescription || description || '';
 const articleDate = pubDate || date || '';
 const articleUpdated = updatedDate || articleDate;
 const articleAuthor = author || 'Nichole';
+const heroImage = publicFileExists(featuredImage) ? featuredImage : null;
+const ogImage = heroImage || getPinImage(rawSlug) || undefined;
 
 const relatedArticles = (relatedData as Record<string, any[]>)[rawSlug] || [];
 ---
 
-<BaseLayout title={title} description={articleDesc} type="article" image={getPinImage(rawSlug) || undefined} publishedTime={articleDate} tags={tags}>
+<BaseLayout title={title} description={articleDesc} type="article" image={ogImage} publishedTime={articleDate} tags={tags}>
   <div class="container-narrow">
     <article>
       <header class="article-header">
@@ -48,6 +58,11 @@ const relatedArticles = (relatedData as Record<string, any[]>)[rawSlug] || [];
           {tags.length > 0 && <span>{tags.map((tag: string) => <a href={`/categories/${tag.toLowerCase().replace(/\s+/g, '-')}/`} style="font-size:0.85rem;margin-right:0.5rem;">#{tag}</a>)}</span>}
         </div>
       </header>
+      {heroImage && (
+        <figure class="article-hero">
+          <img src={heroImage} alt="" />
+        </figure>
+      )}
       <div class="article-content"><Content /></div>
       <AdPlaceholder />
       <div class="disclosure"><strong>Affiliate Disclosure:</strong> Some links on this page are affiliate links. If you purchase through them, we may earn a commission at no extra cost to you. We only recommend products we have tested and trust.</div>
