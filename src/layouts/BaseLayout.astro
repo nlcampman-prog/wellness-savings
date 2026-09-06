@@ -15,7 +15,7 @@ const {
   title,
   description,
   canonical,
-  image = '/og-default.png',
+  image = '/images/og-default.jpg',
   type = 'website',
   publishedTime,
   tags = [],
@@ -42,11 +42,14 @@ const baseSchema = {
       url: siteUrl,
       logo: `${siteUrl}/logo.svg`,
       description: 'Save on premium supplements, organic coffee, natural skincare, and wellness products. Daily deals and exclusive discount codes.',
+      email: 'creator.nickie@gmail.com',
       founder: {
         '@type': 'Person',
         name: 'Nichole',
         description: 'Mom of 5 (including twins), MS, CCC-SLP, former speech-language pathologist with 10+ years pediatric experience, wellness and nutrition enthusiast.',
         url: `${siteUrl}/authors/nichole/`,
+        image: `${siteUrl}/images/nichole.jpg`,
+        email: 'creator.nickie@gmail.com',
       },
     },
   ],
@@ -91,11 +94,6 @@ const articleSchema = type === 'article' ? {
       '@type': 'WebSite',
       name: siteTitle,
       url: siteUrl,
-      potentialAction: {
-        '@type': 'SearchAction',
-        target: { '@type': 'EntryPoint', urlTemplate: `${siteUrl}/search?q={search_term_string}` },
-        'query-input': 'required name=search_term_string',
-      },
     },
   ],
 };
@@ -193,6 +191,7 @@ const jsonLd = articleSchema;
       <div>
         <h3>Legal</h3>
         <a href="/privacy/">Privacy Policy</a>
+        <a href="/terms/">Terms of Service</a>
         <a href="/affiliate-disclosure/">Affiliate Disclosure</a>
         <a href="/rss.xml">RSS</a>
       </div>

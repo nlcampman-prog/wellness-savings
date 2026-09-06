@@ -578,21 +578,7 @@ section > h2 { margin-bottom: 0.5rem; }
 .aff-btn-sm { padding: 0.45rem 1.1rem; font-size: 0.85rem; }
 
 .ad-placeholder {
-  background: var(--color-code-bg);
-  border: 1px dashed var(--color-border);
-  border-radius: var(--radius-sm);
-  padding: 2rem 1.5rem;
-  text-align: center;
-  color: var(--color-text-secondary);
-  font-size: 0.8rem;
-  margin: 2.5rem 0;
-}
-.ad-placeholder::before {
-  content: "[ Ad Space ]";
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  font-size: 0.7rem;
+  display: none;
 }
 
 .cta-box {
