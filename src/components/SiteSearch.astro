@@ -1,0 +1,170 @@
+---
+const inputId = 'site-search-q';
+---
+<div class="site-search" data-site-search>
+  <form class="site-search-form" action="/search/" method="get" role="search">
+    <label class="visually-hidden" for={inputId}>Search reviews and coupon codes</label>
+    <svg class="site-search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <circle cx="11" cy="11" r="7"></circle>
+      <path d="M20 20l-3.5-3.5"></path>
+    </svg>
+    <input
+      id={inputId}
+      class="site-search-input"
+      type="search"
+      name="q"
+      placeholder="Search reviews &amp; codes"
+      autocomplete="off"
+      autocorrect="off"
+      spellcheck="false"
+      maxlength="80"
+      aria-autocomplete="list"
+      aria-controls="site-search-listbox"
+      aria-expanded="false"
+    />
+  </form>
+  <div class="site-search-panel" id="site-search-listbox" role="listbox" hidden></div>
+</div>
+
+<script>
+  import { searchItems } from '../lib/search';
+
+  const root = document.querySelector('[data-site-search]');
+  if (root) {
+    const input = root.querySelector('.site-search-input');
+    const panel = root.querySelector('.site-search-panel');
+    const form = root.querySelector('.site-search-form');
+    let index = [];
+    let results = [];
+    let active = -1;
+    let loaded = false;
+
+    async function loadIndex() {
+      if (loaded) return index;
+      loaded = true;
+      try {
+        const cached = sessionStorage.getItem('ws-search-index-v1');
+        if (cached) {
+          index = JSON.parse(cached);
+          return index;
+        }
+      } catch {
+        /* ignore quota / parse errors */
+      }
+      const res = await fetch('/search-index.json');
+      index = await res.json();
+      try {
+        sessionStorage.setItem('ws-search-index-v1', JSON.stringify(index));
+      } catch {
+        /* ignore quota */
+      }
+      return index;
+    }
+
+    function typeLabel(type) {
+      if (type === 'coupon') return 'Coupon';
+      if (type === 'page') return 'Page';
+      return 'Review';
+    }
+
+    function escapeHtml(value) {
+      return String(value).replace(/[&<>"']/g, (char) => ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;',
+      }[char]));
+    }
+
+    function render() {
+      if (!panel || !input) return;
+      const query = input.value.trim();
+      if (query.length < 2 || !results.length) {
+        panel.hidden = true;
+        panel.innerHTML = '';
+        input.setAttribute('aria-expanded', 'false');
+        active = -1;
+        if (query.length >= 2 && !results.length) {
+          panel.hidden = false;
+          panel.innerHTML = '<p class="site-search-empty">No matches. Try protein, twins, or Flourish.</p>';
+        }
+        return;
+      }
+
+      panel.hidden = false;
+      input.setAttribute('aria-expanded', 'true');
+      panel.innerHTML = results
+        .map((item, i) => {
+          const extra = item.type === 'coupon' && item.discount
+            ? `<span class="site-search-meta">${escapeHtml(item.discount)}${item.code ? ` · ${escapeHtml(item.code)}` : ''}</span>`
+            : `<span class="site-search-meta">${escapeHtml(item.category || '')}</span>`;
+          return `<a class="site-search-hit${i === active ? ' is-active' : ''}" role="option" href="${escapeHtml(item.url)}" data-index="${i}">
+            <span class="site-search-kicker">${typeLabel(item.type)}</span>
+            <span class="site-search-title">${escapeHtml(item.title)}</span>
+            ${extra}
+          </a>`;
+        })
+        .join('') + `<a class="site-search-all" href="/search/?q=${encodeURIComponent(query)}">See all results</a>`;
+    }
+
+    async function onQuery() {
+      const query = input.value.trim();
+      if (query.length < 2) {
+        results = [];
+        render();
+        return;
+      }
+      await loadIndex();
+      results = searchItems(index, query, 8);
+      active = results.length ? 0 : -1;
+      render();
+    }
+
+    let timer = 0;
+    input.addEventListener('input', () => {
+      window.clearTimeout(timer);
+      timer = window.setTimeout(onQuery, 120);
+    });
+
+    input.addEventListener('focus', () => {
+      if (input.value.trim().length >= 2) onQuery();
+    });
+
+    input.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowDown') {
+        event.preventDefault();
+        if (!results.length) return;
+        active = (active + 1) % results.length;
+        render();
+      } else if (event.key === 'ArrowUp') {
+        event.preventDefault();
+        if (!results.length) return;
+        active = (active - 1 + results.length) % results.length;
+        render();
+      } else if (event.key === 'Escape') {
+        panel.hidden = true;
+        input.setAttribute('aria-expanded', 'false');
+        input.blur();
+      } else if (event.key === 'Enter' && active >= 0 && results[active] && !panel.hidden) {
+        const query = input.value.trim();
+        if (query.length >= 2 && results[active]) {
+          event.preventDefault();
+          window.location.href = results[active].url;
+        }
+      }
+    });
+
+    form.addEventListener('submit', (event) => {
+      const query = input.value.trim();
+      if (query.length < 2) event.preventDefault();
+    });
+
+    document.addEventListener('click', (event) => {
+      if (!root.contains(event.target)) {
+        panel.hidden = true;
+        input.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
+</script>

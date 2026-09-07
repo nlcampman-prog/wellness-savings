@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import rawCouponData from '../data/coupons-data.json';
+import { couponAnchor } from '../lib/search-index';
 const couponData = JSON.parse(JSON.stringify(rawCouponData));
 // Merge wellness + fitness + family coupons (dedupe shared brands like Beam/Equip)
 const wellnessCoupons = couponData.wellnesssavings || [];
@@ -56,7 +57,7 @@ function findArticleSlug(brand: string): string {
           {grouped[cat].map(coupon => {
             const slug = findArticleSlug(coupon.brand);
             return (
-              <div class="card" style="display:flex;flex-direction:column;">
+              <div class="card" id={couponAnchor(coupon.brand, coupon.code)} style="display:flex;flex-direction:column;">
                 <span class="card-category">{coupon.category}</span>
                 <h3 class="card-title" style="font-size:1.2rem;margin-bottom:0.25rem;">{coupon.brand}</h3>
                 <div style="font-size:1.1rem;font-weight:800;color:var(--color-primary);margin-bottom:0.5rem;">{coupon.discount}</div>
