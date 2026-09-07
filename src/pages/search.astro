@@ -1,0 +1,126 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const suggestions = ['protein', 'twins', 'magnesium', 'stroller', 'Flourish', 'Equip'];
+---
+<BaseLayout
+  title="Search Wellness Savings"
+  description="Search Nickie’s reviews, how-tos, and verified coupon codes."
+>
+  <div class="container-narrow search-page">
+    <header class="category-header">
+      <h1>Search</h1>
+      <p>Reviews, how-tos, and coupon codes on this site. Type a product, a problem, or a brand.</p>
+    </header>
+
+    <form class="search-page-form" action="/search/" method="get" role="search">
+      <label class="visually-hidden" for="search-page-q">Search reviews and coupon codes</label>
+      <input id="search-page-q" class="search-page-input" type="search" name="q" placeholder="Try protein, twins, or Flourish" maxlength="80" autocomplete="off" />
+      <button class="aff-btn" type="submit">Search</button>
+    </form>
+
+    <div id="search-results">
+      <p class="search-hint">Try one of these:</p>
+      <div class="chip-row">
+        {suggestions.map((term) => (
+          <a class="chip" href={`/search/?q=${encodeURIComponent(term)}`}>{term}</a>
+        ))}
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  import { searchItems } from '../lib/search';
+
+  const params = new URLSearchParams(window.location.search);
+  const query = (params.get('q') || '').trim();
+  const input = document.getElementById('search-page-q');
+  const mount = document.getElementById('search-results');
+  if (input instanceof HTMLInputElement && query) input.value = query;
+
+  if (query && mount) {
+    document.title = `${query} · Search | Wellness Savings`;
+    const robots = document.querySelector('meta[name="robots"]');
+    if (robots) robots.setAttribute('content', 'noindex, follow');
+
+    mount.innerHTML = '<p class="search-hint">Searching…</p>';
+
+    const cached = sessionStorage.getItem('ws-search-index-v1');
+    const load = cached
+      ? Promise.resolve(JSON.parse(cached))
+      : fetch('/search-index.json').then((res) => res.json()).then((data) => {
+          try { sessionStorage.setItem('ws-search-index-v1', JSON.stringify(data)); } catch {}
+          return data;
+        });
+
+    load.then((index) => {
+      const hits = searchItems(index, query, 40);
+      if (!hits.length) {
+        mount.innerHTML = `<p>No reviews or codes matched “${escapeHtml(query)}.” Try a brand name, or browse <a href="/categories/">categories</a> and <a href="/coupons/">coupon codes</a>.</p>`;
+        return;
+      }
+
+      const articles = hits.filter((h) => h.type === 'article');
+      const coupons = hits.filter((h) => h.type === 'coupon');
+      const pages = hits.filter((h) => h.type === 'page');
+
+      let html = `<p class="search-hint">${hits.length} result${hits.length === 1 ? '' : 's'} for “${escapeHtml(query)}”</p>`;
+
+      if (articles.length) {
+        html += '<h2>Reviews &amp; guides</h2><div class="card-grid">';
+        html += articles.map((item) => articleCard(item)).join('');
+        html += '</div>';
+      }
+      if (coupons.length) {
+        html += '<h2>Coupon codes</h2><div class="card-grid">';
+        html += coupons.map((item) => couponCard(item)).join('');
+        html += '</div>';
+      }
+      if (pages.length) {
+        html += '<h2>On this site</h2><ul class="search-page-links">';
+        html += pages.map((item) => `<li><a href="${item.url}">${escapeHtml(item.title)}</a> — ${escapeHtml(item.description)}</li>`).join('');
+        html += '</ul>';
+      }
+      mount.innerHTML = html;
+    }).catch(() => {
+      mount.innerHTML = '<p>Search could not load. Refresh and try again, or browse <a href="/categories/">categories</a>.</p>';
+    });
+  }
+
+  function escapeHtml(value) {
+    return String(value).replace(/[&<>"']/g, (char) => ({
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#39;',
+    }[char]));
+  }
+
+  function articleCard(item) {
+    const date = item.date
+      ? `<div class="card-meta"><time datetime="${escapeHtml(item.date)}">${new Date(item.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</time></div>`
+      : '';
+    const category = item.category
+      ? `<a href="/categories/${encodeURIComponent(item.category.toLowerCase().replace(/\s+/g, '-'))}/" class="card-category">${escapeHtml(item.category)}</a>`
+      : '';
+    return `<article class="card">
+      <div class="card-top">${category}${date}</div>
+      <h2 class="card-title"><a href="${item.url}">${escapeHtml(item.title)}</a></h2>
+      ${item.description ? `<p class="card-excerpt">${escapeHtml(item.description)}</p>` : ''}
+      <a class="card-more" href="${item.url}">Read review</a>
+    </article>`;
+  }
+
+  function couponCard(item) {
+    return `<article class="card">
+      <span class="card-category">${escapeHtml(item.category || 'Coupon')}</span>
+      <h2 class="card-title"><a href="${item.url}">${escapeHtml(item.title)}</a></h2>
+      ${item.discount ? `<div style="font-size:1.1rem;font-weight:800;color:var(--color-primary);margin-bottom:0.5rem;">${escapeHtml(item.discount)}</div>` : ''}
+      ${item.code ? `<div class="coupon-code">${escapeHtml(item.code)}</div>` : ''}
+      ${item.description ? `<p class="card-excerpt">${escapeHtml(item.description)}</p>` : ''}
+      <a class="card-more" href="${item.url}">View code</a>
+    </article>`;
+  }
+</script>
