@@ -5233,6 +5233,12 @@
   ],
   "twin-parenting-gear-guide-2026": [
     {
+      "slug": "two-at-once-twin-pregnancy-first-year-guide",
+      "title": "Two at Once: The Twin Pregnancy and First Year Guide I Wish I'd Had",
+      "featuredImage": "/images/two-at-once-book-cover.jpg",
+      "date": "2026-09-07"
+    },
+    {
       "slug": "baby-maternity-essentials-2026",
       "title": "Baby & Maternity Essentials 2026: The Best New Brands for Savvy Moms",
       "featuredImage": "/images/baby-maternity-essentials.jpg",
@@ -5748,6 +5754,32 @@
       "slug": "when-to-take-essential-amino-acids-instead-of-a-shake",
       "title": "When to Take Essential Amino Acids Instead of Forcing Another Protein Shake",
       "featuredImage": "/images/when-to-take-essential-amino-acids-instead-of-a-shake.jpg",
+      "date": "2026-09-06"
+    }
+  ],
+  "two-at-once-twin-pregnancy-first-year-guide": [
+    {
+      "slug": "twin-parenting-gear-guide-2026",
+      "title": "The Ultimate Twin Parenting Guide: Essential Gear, Books, and Survival Tips (2026)",
+      "featuredImage": "/images/twin-parenting-guide.jpg",
+      "date": "2026-06-24"
+    },
+    {
+      "slug": "baby-registry-checklist-2026-40-must-have-items",
+      "title": "Baby Registry Checklist 2026: 40 Must-Have Items for New Moms",
+      "featuredImage": "/images/baby-registry-40-must-haves-2026.jpg",
+      "date": "2026-07-22"
+    },
+    {
+      "slug": "do-you-need-a-travel-system-from-birth-stroller",
+      "title": "Do You Need a Travel System? How I Buy a From-Birth Stroller Without the $1,000 Bundle",
+      "featuredImage": "/images/do-you-need-a-travel-system-from-birth-stroller.jpg",
+      "date": "2026-09-06"
+    },
+    {
+      "slug": "when-can-baby-ride-in-jogging-stroller",
+      "title": "When Can a Baby Ride in a Jogging Stroller? The Safety Line I Actually Follow",
+      "featuredImage": "/images/when-can-baby-ride-in-jogging-stroller.jpg",
       "date": "2026-09-06"
     }
   ]

@@ -694,6 +694,18 @@ section > h2 { margin-bottom: 0.5rem; }
   width: 100%;
   height: auto;
 }
+.article-hero--book-cover {
+  display: flex;
+  justify-content: center;
+  background: var(--color-bg);
+}
+.article-hero--book-cover img {
+  width: auto;
+  max-width: min(100%, 22rem);
+  max-height: 36rem;
+  height: auto;
+  margin-inline: auto;
+}
 .article-content { font-size: 1.05rem; line-height: 1.85; overflow-x: auto; }
 .article-content h2 { margin-top: 2.75rem; }
 .article-content h3 { margin-top: 2.1rem; }

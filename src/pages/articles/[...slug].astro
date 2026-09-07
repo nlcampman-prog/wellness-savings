@@ -33,7 +33,7 @@ function publicFileExists(src?: string) {
 }
 
 const { Content, frontmatter } = article;
-const { title, description, pubDate, updatedDate, category, tags = [], metaDescription, date, featuredImage, author } = frontmatter;
+const { title, description, pubDate, updatedDate, category, tags = [], metaDescription, date, featuredImage, featuredImageAlt, featuredImageClass, author } = frontmatter;
 const articleDesc = metaDescription || description || '';
 const articleDate = pubDate || date || '';
 const articleUpdated = updatedDate || articleDate;
@@ -59,8 +59,8 @@ const relatedArticles = (relatedData as Record<string, any[]>)[rawSlug] || [];
         </div>
       </header>
       {heroImage && (
-        <figure class="article-hero">
-          <img src={heroImage} alt="" />
+        <figure class:list={["article-hero", featuredImageClass && `article-hero--${featuredImageClass}`]}>
+          <img src={heroImage} alt={featuredImageAlt || ''} />
         </figure>
       )}
       <div class="disclosure"><strong>Affiliate Disclosure:</strong> Some links on this page are affiliate links. If you purchase through them, we may earn a commission at no extra cost to you. We only recommend products we have tested and trust.</div>
