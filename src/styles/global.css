@@ -541,13 +541,8 @@ section > h2 { margin-bottom: 0.5rem; }
   border: 1px solid var(--color-border);
   background: var(--color-surface);
 }
-.article-hero img {
-  display: block;
-  width: 100%;
-  height: auto;
-  max-height: 28rem;
-  object-fit: cover;
-  object-position: center 18%;
+.article-hero img[src*="nickie-kids-breakfast"] {
+  object-position: center 42%;
 }
 .article-content { font-size: 1.05rem; line-height: 1.85; overflow-x: auto; }
 .article-content h2 { margin-top: 2.75rem; }
