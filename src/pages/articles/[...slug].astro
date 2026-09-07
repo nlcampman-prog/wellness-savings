@@ -63,9 +63,9 @@ const relatedArticles = (relatedData as Record<string, any[]>)[rawSlug] || [];
           <img src={heroImage} alt="" />
         </figure>
       )}
+      <div class="disclosure"><strong>Affiliate Disclosure:</strong> Some links on this page are affiliate links. If you purchase through them, we may earn a commission at no extra cost to you. We only recommend products we have tested and trust.</div>
       <div class="article-content"><Content /></div>
       <AdPlaceholder />
-      <div class="disclosure"><strong>Affiliate Disclosure:</strong> Some links on this page are affiliate links. If you purchase through them, we may earn a commission at no extra cost to you. We only recommend products we have tested and trust.</div>
       {relatedArticles.length > 0 && (
         <section class="related-articles">
           <h2 class="related-heading">You May Also Like</h2>
