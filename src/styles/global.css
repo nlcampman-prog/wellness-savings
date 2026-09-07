@@ -694,6 +694,9 @@ section > h2 { margin-bottom: 0.5rem; }
   width: 100%;
   height: auto;
 }
+.article-hero img[src*="nickie-kids-breakfast"] {
+  object-position: center 42%;
+}
 .article-hero--book-cover {
   display: flex;
   justify-content: center;
