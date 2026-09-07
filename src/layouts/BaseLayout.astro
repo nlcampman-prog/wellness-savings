@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import SiteSearch from '../components/SiteSearch.astro';
 
 export interface Props {
   title: string;
@@ -52,6 +53,19 @@ const baseSchema = {
         email: 'creator.nickie@gmail.com',
       },
     },
+    {
+      '@type': 'WebSite',
+      name: siteTitle,
+      url: siteUrl,
+      potentialAction: {
+        '@type': 'SearchAction',
+        target: {
+          '@type': 'EntryPoint',
+          urlTemplate: `${siteUrl}/search/?q={search_term_string}`,
+        },
+        'query-input': 'required name=search_term_string',
+      },
+    },
   ],
 };
 
@@ -90,11 +104,6 @@ const articleSchema = type === 'article' ? {
   '@context': 'https://schema.org',
   '@graph': [
     ...baseSchema['@graph'],
-    {
-      '@type': 'WebSite',
-      name: siteTitle,
-      url: siteUrl,
-    },
   ],
 };
 
@@ -145,6 +154,7 @@ const jsonLd = articleSchema;
       <a href="/" class="site-logo">
         <img src="/logo.svg" alt="Wellness Savings" width="188" height="44" />
       </a>
+      <SiteSearch />
       <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
         <span></span><span></span><span></span>
       </button>
@@ -176,6 +186,7 @@ const jsonLd = articleSchema;
       <div>
         <h3>Explore</h3>
         <a href="/categories/">Categories</a>
+        <a href="/search/">Search</a>
         <a href="/coupons/">Coupon codes</a>
         <a href="/categories/fitness/">Fitness</a>
         <a href="/categories/family/">Family</a>

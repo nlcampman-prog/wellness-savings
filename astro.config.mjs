@@ -10,7 +10,7 @@ export default defineConfig({
   integrations: [
     mdx(),
     sitemap({
-      filter: (page) => !page.includes('/404'),
+      filter: (page) => !page.includes('/404') && !page.includes('search-index.json'),
       changefreq: 'daily',
       priority: 0.7,
       lastmod: new Date(),
