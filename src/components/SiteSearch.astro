@@ -43,7 +43,7 @@ const inputId = 'site-search-q';
       if (loaded) return index;
       loaded = true;
       try {
-        const cached = sessionStorage.getItem('ws-search-index-v1');
+        const cached = sessionStorage.getItem('ws-search-index-v2');
         if (cached) {
           index = JSON.parse(cached);
           return index;
@@ -54,7 +54,7 @@ const inputId = 'site-search-q';
       const res = await fetch('/search-index.json');
       index = await res.json();
       try {
-        sessionStorage.setItem('ws-search-index-v1', JSON.stringify(index));
+        sessionStorage.setItem('ws-search-index-v2', JSON.stringify(index));
       } catch {
         /* ignore quota */
       }
@@ -64,6 +64,7 @@ const inputId = 'site-search-q';
     function typeLabel(type) {
       if (type === 'coupon') return 'Coupon';
       if (type === 'page') return 'Page';
+      if (type === 'blog') return 'Mom Mode';
       return 'Review';
     }
 
@@ -116,7 +117,25 @@ const inputId = 'site-search-q';
         return;
       }
       await loadIndex();
-      results = searchItems(index, query, 8);
+      const ranked = searchItems(index, query, 24);
+      const quota = { article: 3, blog: 2, coupon: 2, page: 1 };
+      const counts = { article: 0, blog: 0, coupon: 0, page: 0 };
+      results = [];
+      for (const item of ranked) {
+        const type = item.type in counts ? item.type : 'article';
+        if (counts[type] < quota[type]) {
+          results.push(item);
+          counts[type] += 1;
+        }
+        if (results.length >= 8) break;
+      }
+      if (results.length < 8) {
+        for (const item of ranked) {
+          if (results.includes(item)) continue;
+          results.push(item);
+          if (results.length >= 8) break;
+        }
+      }
       active = results.length ? 0 : -1;
       render();
     }

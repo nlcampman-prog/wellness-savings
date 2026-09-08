@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ArticleCard from '../components/ArticleCard.astro';
+import { getMomModePosts } from '../lib/wordpress';
 
 const articles = Object.entries(import.meta.glob('../content/articles/*.mdx', { eager: true }))
   .map(([path, mod]: [string, any]) => ({
@@ -20,6 +21,7 @@ articles.forEach((a) => {
 const topCategories = Array.from(categoryCounts.entries())
   .sort((a, b) => b[1] - a[1])
   .slice(0, 8);
+const momModePosts = await getMomModePosts(3);
 ---
 
 <BaseLayout
@@ -86,5 +88,28 @@ const topCategories = Array.from(categoryCounts.entries())
         ))}
       </div>
     </section>
+
+    {momModePosts.length > 0 && (
+      <section>
+        <div class="section-heading">
+          <h2>From Mom Mode 24/7</h2>
+          <a href="/mom-mode/">Fashion, beauty &amp; mom life</a>
+        </div>
+        <p class="section-lede">Lifestyle posts from Nichole’s WordPress blog. Codes and reviews stay here.</p>
+        <div class="card-grid">
+          {momModePosts.map((post) => (
+            <ArticleCard
+              title={post.title}
+              description={post.excerpt}
+              url={post.url}
+              category={post.category}
+              categoryHref="/mom-mode/"
+              date={post.date}
+              moreLabel="Read on Mom Mode"
+            />
+          ))}
+        </div>
+      </section>
+    )}
   </div>
 </BaseLayout>

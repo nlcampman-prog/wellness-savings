@@ -46,22 +46,23 @@ const suggestions = ['protein', 'twins', 'magnesium', 'stroller', 'Flourish', 'E
 
     mount.innerHTML = '<p class="search-hint">Searching…</p>';
 
-    const cached = sessionStorage.getItem('ws-search-index-v1');
+    const cached = sessionStorage.getItem('ws-search-index-v2');
     const load = cached
       ? Promise.resolve(JSON.parse(cached))
       : fetch('/search-index.json').then((res) => res.json()).then((data) => {
-          try { sessionStorage.setItem('ws-search-index-v1', JSON.stringify(data)); } catch {}
+          try { sessionStorage.setItem('ws-search-index-v2', JSON.stringify(data)); } catch {}
           return data;
         });
 
     load.then((index) => {
-      const hits = searchItems(index, query, 40);
+      const hits = searchItems(index, query, 80);
       if (!hits.length) {
         mount.innerHTML = `<p>No reviews or codes matched “${escapeHtml(query)}.” Try a brand name, or browse <a href="/categories/">categories</a> and <a href="/coupons/">coupon codes</a>.</p>`;
         return;
       }
 
       const articles = hits.filter((h) => h.type === 'article');
+      const blog = hits.filter((h) => h.type === 'blog');
       const coupons = hits.filter((h) => h.type === 'coupon');
       const pages = hits.filter((h) => h.type === 'page');
 
@@ -70,6 +71,11 @@ const suggestions = ['protein', 'twins', 'magnesium', 'stroller', 'Flourish', 'E
       if (articles.length) {
         html += '<h2>Reviews &amp; guides</h2><div class="card-grid">';
         html += articles.map((item) => articleCard(item)).join('');
+        html += '</div>';
+      }
+      if (blog.length) {
+        html += '<h2>Mom Mode 24/7</h2><div class="card-grid">';
+        html += blog.map((item) => blogCard(item)).join('');
         html += '</div>';
       }
       if (coupons.length) {
@@ -110,6 +116,21 @@ const suggestions = ['protein', 'twins', 'magnesium', 'stroller', 'Flourish', 'E
       <h2 class="card-title"><a href="${item.url}">${escapeHtml(item.title)}</a></h2>
       ${item.description ? `<p class="card-excerpt">${escapeHtml(item.description)}</p>` : ''}
       <a class="card-more" href="${item.url}">Read review</a>
+    </article>`;
+  }
+
+  function blogCard(item) {
+    const date = item.date
+      ? `<div class="card-meta"><time datetime="${escapeHtml(item.date)}">${new Date(item.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</time></div>`
+      : '';
+    const category = item.category
+      ? `<a href="/mom-mode/" class="card-category">${escapeHtml(item.category)}</a>`
+      : '';
+    return `<article class="card">
+      <div class="card-top">${category}${date}</div>
+      <h2 class="card-title"><a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(item.title)}</a></h2>
+      ${item.description ? `<p class="card-excerpt">${escapeHtml(item.description)}</p>` : ''}
+      <a class="card-more" href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer">Read on Mom Mode</a>
     </article>`;
   }
 

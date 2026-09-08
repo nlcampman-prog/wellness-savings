@@ -547,6 +547,11 @@ section > h2 { margin-bottom: 0.5rem; }
   font-weight: 600;
   white-space: nowrap;
 }
+.section-lede {
+  margin: 0.35rem 0 0;
+  color: var(--color-text-secondary);
+  font-size: 0.95rem;
+}
 
 .chip-row {
   display: flex;

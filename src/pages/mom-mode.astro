@@ -1,0 +1,48 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import { getMomModePosts, MOM_MODE_SITE } from '../lib/wordpress';
+
+const posts = await getMomModePosts(18);
+---
+
+<BaseLayout
+  title="Mom Mode 24/7 — Fashion, Beauty & Mom Life"
+  description="Latest posts from Nichole’s WordPress blog, Mom Mode 24/7: fashion, beauty, and everyday mom life, plus the wellness stories behind Wellness Savings."
+>
+  <div class="container">
+    <div class="category-header">
+      <p class="card-category" style="margin-bottom: 0.75rem;">Also by Nichole</p>
+      <h1>Mom Mode 24/7</h1>
+      <p>
+        Lifestyle writing lives on Nichole’s WordPress blog — outfits, beauty, and real mom energy.
+        Discount codes and product reviews stay here on Wellness Savings. New Mom Mode posts show up
+        on this page every time this site deploys.
+      </p>
+      <p>
+        <a href={MOM_MODE_SITE} target="_blank" rel="noopener noreferrer">Visit mommode247.com</a>
+      </p>
+    </div>
+
+    {posts.length > 0 ? (
+      <div class="card-grid">
+        {posts.map((post) => (
+          <ArticleCard
+            title={post.title}
+            description={post.excerpt}
+            url={post.url}
+            category={post.category}
+            categoryHref="/mom-mode/"
+            date={post.date}
+            moreLabel="Read on Mom Mode"
+          />
+        ))}
+      </div>
+    ) : (
+      <p>
+        Latest posts will appear here after the next successful fetch from{' '}
+        <a href={MOM_MODE_SITE} target="_blank" rel="noopener noreferrer">Mom Mode 24/7</a>.
+      </p>
+    )}
+  </div>
+</BaseLayout>
