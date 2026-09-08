@@ -1,5 +1,5 @@
 export type SearchItem = {
-  type: 'article' | 'coupon' | 'page';
+  type: 'article' | 'coupon' | 'page' | 'blog';
   title: string;
   description: string;
   category: string;

@@ -4,18 +4,24 @@ export interface Props {
   description: string;
   url: string;
   category?: string;
+  categoryHref?: string;
   date?: string;
   tags?: string[];
+  moreLabel?: string;
 }
-const { title, description, url, category, date } = Astro.props;
+const { title, description, url, category, categoryHref, date, moreLabel } = Astro.props;
 const excerpt = (description || '').trim();
+const isExternal = /^https?:\/\//.test(url);
+const categoryUrl = categoryHref || (category ? `/categories/${category.toLowerCase().replace(/\s+/g, '-')}/` : undefined);
 ---
 <article class="card">
   <div class="card-top">
-    {category && <a href={`/categories/${category.toLowerCase().replace(/\s+/g, '-')}/`} class="card-category">{category}</a>}
+    {category && categoryUrl && <a href={categoryUrl} class="card-category" {...(categoryUrl.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>{category}</a>}
     {date && <div class="card-meta"><time datetime={date}>{new Date(date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</time></div>}
   </div>
-  <h2 class="card-title"><a href={url}>{title}</a></h2>
+  <h2 class="card-title">
+    <a href={url} {...(isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>{title}</a>
+  </h2>
   {excerpt && <p class="card-excerpt">{excerpt}</p>}
-  <a class="card-more" href={url}>Read review</a>
+  <a class="card-more" href={url} {...(isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>{moreLabel || (isExternal ? 'Read on Mom Mode' : 'Read review')}</a>
 </article>

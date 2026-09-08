@@ -43,7 +43,7 @@ const inputId = 'site-search-q';
       if (loaded) return index;
       loaded = true;
       try {
-        const cached = sessionStorage.getItem('ws-search-index-v1');
+        const cached = sessionStorage.getItem('ws-search-index-v2');
         if (cached) {
           index = JSON.parse(cached);
           return index;
@@ -54,7 +54,7 @@ const inputId = 'site-search-q';
       const res = await fetch('/search-index.json');
       index = await res.json();
       try {
-        sessionStorage.setItem('ws-search-index-v1', JSON.stringify(index));
+        sessionStorage.setItem('ws-search-index-v2', JSON.stringify(index));
       } catch {
         /* ignore quota */
       }
@@ -64,6 +64,7 @@ const inputId = 'site-search-q';
     function typeLabel(type) {
       if (type === 'coupon') return 'Coupon';
       if (type === 'page') return 'Page';
+      if (type === 'blog') return 'Mom Mode';
       return 'Review';
     }
 
