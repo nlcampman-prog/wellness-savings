@@ -85,7 +85,7 @@ export function getSearchIndex(): SearchItem[] {
     {
       type: 'page',
       title: 'Mom Mode 24/7',
-      description: 'Nichole’s WordPress blog for fashion, beauty, and everyday mom life. Posts are written in WordPress and listed here on each Vercel deploy.',
+      description: 'Fashion, beauty, and everyday mom life from Nichole’s lifestyle blog.',
       category: 'The site',
       url: '/mom-mode/',
     },

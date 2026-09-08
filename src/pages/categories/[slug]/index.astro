@@ -31,7 +31,7 @@ const categoryName = matchingArticles[0]?.category || slug;
     {matchingArticles.length > 0 ? (
       <div class="card-grid">
         {matchingArticles.map((article: any) => (
-          <ArticleCard title={article.title} description={article.metaDescription || article.description} url={`/articles/${article.slug}/`} category={article.category} date={article.pubDate || article.date} />
+          <ArticleCard title={article.title} description={article.metaDescription || article.description} url={`/articles/${article.slug}/`} category={article.category} date={article.pubDate || article.date} image={article.featuredImage} />
         ))}
       </div>
     ) : <p>No deals found in this category yet. Check back soon!</p>}

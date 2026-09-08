@@ -8,20 +8,32 @@ export interface Props {
   date?: string;
   tags?: string[];
   moreLabel?: string;
+  image?: string;
+  imageAlt?: string;
 }
-const { title, description, url, category, categoryHref, date, moreLabel } = Astro.props;
+const { title, description, url, category, categoryHref, date, moreLabel, image, imageAlt } = Astro.props;
 const excerpt = (description || '').trim();
 const isExternal = /^https?:\/\//.test(url);
 const categoryUrl = categoryHref || (category ? `/categories/${category.toLowerCase().replace(/\s+/g, '-')}/` : undefined);
+const media = (image || '').trim().replace(/^['"]|['"]$/g, '');
+const showMedia = media.startsWith('/') || media.startsWith('http');
+const linkAttrs = isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {};
 ---
-<article class="card">
-  <div class="card-top">
-    {category && categoryUrl && <a href={categoryUrl} class="card-category" {...(categoryUrl.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>{category}</a>}
-    {date && <div class="card-meta"><time datetime={date}>{new Date(date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</time></div>}
+<article class:list={['card', showMedia && 'card--media']}>
+  {showMedia && (
+    <a class="card-media" href={url} tabindex="-1" aria-hidden="true" {...linkAttrs}>
+      <img src={media} alt="" loading="lazy" width="640" height="360" />
+    </a>
+  )}
+  <div class="card-body">
+    <div class="card-top">
+      {category && categoryUrl && <a href={categoryUrl} class="card-category" {...(categoryUrl.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>{category}</a>}
+      {date && <div class="card-meta"><time datetime={date}>{new Date(date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</time></div>}
+    </div>
+    <h2 class="card-title">
+      <a href={url} {...linkAttrs}>{title}</a>
+    </h2>
+    {excerpt && <p class="card-excerpt">{excerpt}</p>}
+    <a class="card-more" href={url} {...linkAttrs}>{moreLabel || (isExternal ? 'Read on Mom Mode' : 'Read review')}</a>
   </div>
-  <h2 class="card-title">
-    <a href={url} {...(isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>{title}</a>
-  </h2>
-  {excerpt && <p class="card-excerpt">{excerpt}</p>}
-  <a class="card-more" href={url} {...(isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>{moreLabel || (isExternal ? 'Read on Mom Mode' : 'Read review')}</a>
 </article>

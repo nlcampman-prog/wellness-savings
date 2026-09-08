@@ -8,11 +8,12 @@ const articles = Object.entries(import.meta.glob('../content/articles/*.mdx', { 
     ...mod.frontmatter,
     slug: path.split('/').pop()?.replace('.mdx', '') || '',
   }));
-const featuredArticles = articles.filter((a) => a.featured);
 const allArticles = articles.sort((a, b) =>
   new Date(b.pubDate || b.date || 0).getTime() - new Date(a.pubDate || a.date || 0).getTime()
 );
-const latestArticles = allArticles.slice(0, 12);
+const featuredArticles = allArticles.filter((a) => a.featuredImage).slice(0, 3);
+const featuredSlugs = new Set(featuredArticles.map((a) => a.slug));
+const latestArticles = allArticles.filter((a) => !featuredSlugs.has(a.slug)).slice(0, 9);
 
 const categoryCounts = new Map<string, number>();
 articles.forEach((a) => {
@@ -38,6 +39,10 @@ const momModePosts = await getMomModePosts(3);
         <a class="aff-btn" href="/categories/">Read reviews &amp; guides</a>
         <a class="btn-secondary" href="/coupons/">Browse coupon codes</a>
       </div>
+      <a class="hero-byline" href="/about/">
+        <img src="/images/nickie-iced-coffee.jpg" alt="Nichole" width="48" height="48" />
+        <span>Nichole, mom of five — every code is one she’d use at home</span>
+      </a>
     </div>
   </section>
 
@@ -71,7 +76,7 @@ const momModePosts = await getMomModePosts(3);
         </div>
         <div class="card-grid">
           {featuredArticles.map((article: any) => (
-            <ArticleCard title={article.title} description={article.metaDescription || article.description} url={`/articles/${article.slug}/`} category={article.category} date={article.pubDate || article.date} />
+            <ArticleCard title={article.title} description={article.metaDescription || article.description} url={`/articles/${article.slug}/`} category={article.category} date={article.pubDate || article.date} image={article.featuredImage} />
           ))}
         </div>
       </section>
@@ -84,7 +89,7 @@ const momModePosts = await getMomModePosts(3);
       </div>
       <div class="card-grid">
         {latestArticles.map((article: any) => (
-          <ArticleCard title={article.title} description={article.metaDescription || article.description} url={`/articles/${article.slug}/`} category={article.category} date={article.pubDate || article.date} />
+          <ArticleCard title={article.title} description={article.metaDescription || article.description} url={`/articles/${article.slug}/`} category={article.category} date={article.pubDate || article.date} image={article.featuredImage} />
         ))}
       </div>
     </section>
@@ -95,7 +100,6 @@ const momModePosts = await getMomModePosts(3);
           <h2>From Mom Mode 24/7</h2>
           <a href="/mom-mode/">Fashion, beauty &amp; mom life</a>
         </div>
-        <p class="section-lede">Lifestyle posts from Nichole’s WordPress blog. Codes and reviews stay here.</p>
         <div class="card-grid">
           {momModePosts.map((post) => (
             <ArticleCard
