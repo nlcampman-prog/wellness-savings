@@ -47,7 +47,7 @@ function findArticleSlug(brand: string): string {
   <div class="container">
     <div class="category-header">
     <h1>Coupon codes</h1>
-    <p>Every active discount code we’ve verified. Tap a code to copy it, then shop.</p>
+    <p>Every active discount we’ve verified. Tap a real code to copy it, then shop. Some brands (like Beam) apply the sale through the shop button — no code to enter.</p>
     </div>
 
     {categories.map(cat => (
@@ -61,9 +61,11 @@ function findArticleSlug(brand: string): string {
                 <span class="card-category">{coupon.category}</span>
                 <h3 class="card-title" style="font-size:1.2rem;margin-bottom:0.25rem;">{coupon.brand}</h3>
                 <div style="font-size:1.1rem;font-weight:800;color:var(--color-primary);margin-bottom:0.5rem;">{coupon.discount}</div>
+                {!['Link', 'Code'].includes(coupon.code) && (
                 <div class="coupon-code" onclick="navigator.clipboard.writeText('{coupon.code}');this.textContent='✓ Copied!'" title="Click to copy">
                   {coupon.code}
                 </div>
+                )}
                 <p class="card-excerpt" style="flex:1;">{coupon.description}</p>
                 <div style="display:flex;gap:0.5rem;margin-top:0.75rem;flex-wrap:wrap;">
                   <a href={coupon.url} class="aff-btn" rel="sponsored noopener noreferrer" target="_blank" style="flex:1;text-align:center;">Shop Now →</a>

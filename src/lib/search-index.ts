@@ -64,7 +64,7 @@ export function getSearchIndex(): SearchItem[] {
     {
       type: 'page',
       title: 'Coupon codes',
-      description: 'Every active discount code we have verified. Tap a code to copy it, then shop.',
+      description: 'Every active discount we have verified. Tap a real code to copy it, then shop. Some brands apply the sale through the shop button.',
       category: 'The site',
       url: '/coupons/',
     },
