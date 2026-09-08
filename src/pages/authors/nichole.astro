@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ArticleCard from '../../components/ArticleCard.astro';
+import { resolveCardImage } from '../../lib/images';
 
 const articles = Object.entries(import.meta.glob('../../content/articles/*.mdx', { eager: true }))
   .map(([path, mod]: [string, any]) => ({
@@ -65,7 +66,7 @@ const authorArticles = articles
             url={`/articles/${slug}/`}
             category={category}
             date={articleDate}
-            image={featuredImage}
+            image={resolveCardImage(slug, featuredImage)}
           />
         );
       })}

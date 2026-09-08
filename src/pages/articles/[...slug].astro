@@ -1,10 +1,8 @@
 ---
-import fs from 'node:fs';
-import path from 'node:path';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import AdPlaceholder from '../../components/AdPlaceholder.astro';
 import relatedData from '../../data/related.json';
-import { pinFilenames } from '../../data/pins';
+import { getPinImage, publicFileExists } from '../../lib/images';
 
 export async function getStaticPaths() {
   const articles = import.meta.glob('../../content/articles/*.mdx', { eager: true });
@@ -16,21 +14,6 @@ export async function getStaticPaths() {
 
 const { article } = Astro.props;
 const rawSlug = Astro.params.slug || '';
-
-function getPinImage(slug: string) {
-  for (const filename of pinFilenames) {
-    const name = filename.replace('.jpg', '');
-    if (name.includes(slug) || slug.includes((name.split('-2026')[0] || ''))) {
-      return '/pins/' + filename;
-    }
-  }
-  return null;
-}
-
-function publicFileExists(src?: string) {
-  if (!src || !src.startsWith('/')) return false;
-  return fs.existsSync(path.join(process.cwd(), 'public', src.replace(/^\//, '')));
-}
 
 const { Content, frontmatter } = article;
 const { title, description, pubDate, updatedDate, category, tags = [], metaDescription, date, featuredImage, featuredImageAlt, featuredImageClass, author } = frontmatter;

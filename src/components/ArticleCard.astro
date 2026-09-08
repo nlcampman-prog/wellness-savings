@@ -1,4 +1,6 @@
 ---
+import { publicFileExists } from '../lib/images';
+
 export interface Props {
   title: string;
   description: string;
@@ -9,14 +11,13 @@ export interface Props {
   tags?: string[];
   moreLabel?: string;
   image?: string;
-  imageAlt?: string;
 }
-const { title, description, url, category, categoryHref, date, moreLabel, image, imageAlt } = Astro.props;
+const { title, description, url, category, categoryHref, date, moreLabel, image } = Astro.props;
 const excerpt = (description || '').trim();
 const isExternal = /^https?:\/\//.test(url);
 const categoryUrl = categoryHref || (category ? `/categories/${category.toLowerCase().replace(/\s+/g, '-')}/` : undefined);
 const media = (image || '').trim().replace(/^['"]|['"]$/g, '');
-const showMedia = media.startsWith('/') || media.startsWith('http');
+const showMedia = media.startsWith('http') || publicFileExists(media);
 const linkAttrs = isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {};
 ---
 <article class:list={['card', showMedia && 'card--media']}>
