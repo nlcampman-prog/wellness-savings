@@ -55,7 +55,7 @@ const suggestions = ['protein', 'twins', 'magnesium', 'stroller', 'Flourish', 'E
         });
 
     load.then((index) => {
-      const hits = searchItems(index, query, 40);
+      const hits = searchItems(index, query, 80);
       if (!hits.length) {
         mount.innerHTML = `<p>No reviews or codes matched “${escapeHtml(query)}.” Try a brand name, or browse <a href="/categories/">categories</a> and <a href="/coupons/">coupon codes</a>.</p>`;
         return;

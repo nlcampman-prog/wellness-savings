@@ -65,6 +65,7 @@ export function searchItems(items: SearchItem[], query: string, limit = 20): Sea
         else score += 10;
       }
       if (item.type === 'article') score += 2;
+      if (item.type === 'blog') score += 8;
       return { item, score };
     })
     .filter((row): row is { item: SearchItem; score: number } => Boolean(row))
