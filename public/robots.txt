@@ -1,3 +1,20 @@
+# OpenAI / ChatGPT crawlers
+# OAI-AdsBot: validates landing pages submitted as ChatGPT ads
+# OAI-SearchBot: surfaces the site in ChatGPT search
+# GPTBot: may use crawled pages to train OpenAI models
+# ChatGPT-User: visits a page when a ChatGPT user asks about it
+User-agent: OAI-AdsBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
 User-agent: *
 Allow: /
 

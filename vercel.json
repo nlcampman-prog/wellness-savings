@@ -1,6 +1,17 @@
 {
   "redirects": [
     {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.wellnesssavings.org"
+        }
+      ],
+      "destination": "https://wellnesssavings.org/:path*",
+      "permanent": true
+    },
+    {
       "source": "/articles/trimi-glp1-review-2026",
       "destination": "/articles/trimi-glp1-natural-alternative-review-2026/",
       "permanent": true
